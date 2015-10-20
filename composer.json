@@ -1,0 +1,33 @@
+{
+    "name": "Vigenere Cipher Encryption Library",
+    "description": "Implementation of the famous Vigenère cipher.",
+    "version": "0.0.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Douglas Linsmeyer",
+            "email": "douglinsmeyer@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.0",
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "DLinsmeyer\\VigenereCipher\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DLinsmeyer\\VigenereCipher\\Test\\": "tests"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
