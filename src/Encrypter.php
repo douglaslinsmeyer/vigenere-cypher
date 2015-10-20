@@ -15,6 +15,9 @@ namespace DLinsmeyer\VigenereCipher;
 class Encrypter
 {
     /**
+     * The value/character maps are kept separately to prevent the necessity
+     * of performing array flip operations numerous times during an encryption/decryption cycle.
+     *
      * @var array
      */
     private $characterToValueMap = [
@@ -47,6 +50,9 @@ class Encrypter
     ];
 
     /**
+     * The value/character maps are kept separately to prevent the necessity
+     * of performing array flip operations numerous times during an encryption/decryption cycle.
+     *
      * @var array
      */
     private $valueToCharacterMap = [
@@ -95,7 +101,9 @@ class Encrypter
      */
     public function __construct($key)
     {
-        $this->key = strtoupper($key);
+        $this->assertValidString($key);
+
+        $this->key = $key;
         $this->keyLength = strlen($key);
     }
 
