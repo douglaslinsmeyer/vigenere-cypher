@@ -32,9 +32,9 @@ class EncrypterTest extends MockeryTestCase
     }
 
     /**
-     * Test two-way encryption
+     * Test two-way encryption with valid strings
      *
-     * @dataProvider stringProvider
+     * @dataProvider validStringProvider
      * @param string $string
      *
      * @return void
@@ -48,17 +48,47 @@ class EncrypterTest extends MockeryTestCase
     }
 
     /**
-     * Data provider for encryption test
+     * Test handling of invalid strings
+     *
+     * @dataProvider invalidStringProvider
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage This encryption library only supports uppercase alphabetic characters.
+     * @param string $string
+     *
+     * @return void
+     */
+    public function testCannotEncrypt($string)
+    {
+        $this->encrypter->encrypt($string);
+    }
+
+    /**
+     * Valid data provider for encryption test
      *
      * @return array
      */
-    public function stringProvider()
+    public function validStringProvider()
     {
         return [
             ['ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
             ['ZYXWVUTSRQPONMLKJIHGFEDCBA'],
             ['HELLOWORLD'],
             ['THECAKEISALIE'],
+        ];
+    }
+
+    /**
+     * Invalid data provider for encryption test
+     *
+     * @return array
+     */
+    public function invalidStringProvider()
+    {
+        return [
+            ['123'],
+            ['ABC!'],
+            ['abcABC'],
+            ['ABC123'],
         ];
     }
 }

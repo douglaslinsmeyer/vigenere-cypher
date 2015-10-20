@@ -108,9 +108,9 @@ class Encrypter
      */
     public function encrypt($unencryptedString)
     {
+        $this->assertValidString($unencryptedString);
+
         $unencryptedStringLength = strlen($unencryptedString);
-        $unencryptedString = strtoupper($unencryptedString);
-        $unencryptedString = preg_replace('/[^A-Z]/i', '', $unencryptedString);
         $encryptedString = '';
 
         for ($i = 0; $i < $unencryptedStringLength; $i++) {
@@ -138,6 +138,8 @@ class Encrypter
      */
     public function decrypt($encryptedString)
     {
+        $this->assertValidString($encryptedString);
+
         $encryptedStringLength = strlen($encryptedString);
         $decryptedString = '';
 
@@ -159,5 +161,21 @@ class Encrypter
         }
 
         return $decryptedString;
+    }
+
+    /**
+     * Assert string passed to encrypter is valid
+     *
+     * @param string $string
+     *
+     * @throws \InvalidArgumentException if string is not valid
+     * @return void
+     */
+    private function assertValidString($string)
+    {
+        $sanitizedString = preg_replace('/[^A-Z]/', '', $string);
+        if (strlen($sanitizedString) < strlen($string)) {
+            throw new \InvalidArgumentException('This encryption library only supports uppercase alphabetic characters.');
+        }
     }
 }
